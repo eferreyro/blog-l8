@@ -2,7 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Database\Seeder;
+
+use Illuminate\Support\Facades\Storage;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,6 +17,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        //Elimino el contenido del directorio public/storage/posts
+        Storage::deleteDirectory('posts');
+        //Creo una carpeta en public/storage llamada posts
+        Storage::makeDirectory('posts');
+
         // \App\Models\User::factory(10)->create();
+        //Llamo al seeder que acabo de crear ya que este documento es el unico que se crea a la hora de ejecutar los seeders
+        $this->call(UserSeeder::class);
+        Category::factory(4)->create();
+        Tag::factory(8)->create();
+        $this->call(PostSeeder::class);
     }
 }
