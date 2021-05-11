@@ -26,14 +26,13 @@
         LOGOTIPO
        ---------- -->
       <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
-        <div class="flex-shrink-0 flex items-center">
+        <a href="/" class="flex-shrink-0 flex items-center">
           <img class="block lg:hidden h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Workflow">
           <img class="hidden lg:block h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg" alt="Workflow">
-        </div>
+        </a>
         <div class="hidden sm:block sm:ml-6">
           <div class="flex space-x-4">
-            <!-- 
-            
+            <!--             
             
             -->
             <a href="#" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Dashboard</a>
@@ -46,6 +45,7 @@
       <!-- ----------
        MENU SUPERIOR LG
       ---------- -->
+      @auth
       <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
         
         <!-- BOTON NOTIFICACION CAMPANA -->
@@ -72,12 +72,22 @@
             <!-- Active: "bg-gray-100", Not Active: "" -->
             <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
             <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
-            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
+            <form method="post" action="{{ route('logout') }}" >
+              @csrf
+            <a href="{{ route('logout') }}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2"  onclick="event.preventDefault(); this.closest('form').submit();">
+              Sign out
+            </a>
+            </form>
           </div>
         </div>
 
       </div>
-
+      @else
+      <div>
+          <a href="/login" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Login</a>
+          <a href="/register" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Register</a>
+      </div>
+      @endauth
 
     </div>
   </div>
