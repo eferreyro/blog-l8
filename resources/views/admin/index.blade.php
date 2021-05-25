@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Blog_EMMA')
+@section('title', 'Blog EMMA')
 
 @section('content_header')
     <h1>Blog Personal WinSystems</h1>
