@@ -8,8 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory;
-    
+    //Habilito la asignacion masiva de categorias
+    protected $fillable = ['name', 'slug'];
+
+    public function getRouteKeyName()
+    {
+        return "slug";
+    }
+
+
     //Relacion uno a muchos
+
     public function posts()
     {
         return $this->hasMany(Post::class);
