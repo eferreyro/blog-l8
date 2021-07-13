@@ -7,17 +7,17 @@
 @stop
 
 @section('content')
+
+    @if (session('info'))
+        <div class="alert alert-success">
+            <strong>{{ session('info') }}</strong>
+        </div>
+    @endif
     <div class="card">
         <div class="card-body">
-            {!! Form::open(['route' => 'admin.tags.store']) !!}
-            <div class="form-group">
-                {!! Form::label('name', 'Nombre:') !!}
-                {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Ingrese nombre de Etiqueta...']) !!}
-            </div>
-            <div class="form-group">
-                {!! Form::label('slug', 'Slug:') !!}
-                {!! Form::text('slug', null, ['class' => 'form-control', 'placeholder' => 'Slug de Etiqueta...', 'readonly']) !!}
-            </div>
+            {!! Form::model($tag, ['route' => ['admin.tags.update', $tag], 'method' => 'put']) !!}
+                @include('admin.tags.partials.form')
+                {!! Form::submit('Actualizar Etiqueta', ['class' => 'btn btn-primary']) !!}
             {!! Form::close() !!}
         </div>
     </div>
@@ -37,6 +37,5 @@
                 space: '-'
             });
         });
-
     </script>
 @endsection

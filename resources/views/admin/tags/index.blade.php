@@ -3,17 +3,18 @@
 @section('title', 'Blog EMMA')
 
 @section('content_header')
-<a class="btn btn-secondary btn-sm float-right" href="{{ route('admin.tags.create') }}">Nueva Etiqueta</a>
+<a class="btn btn-primary btn-sm float-right" href="{{ route('admin.tags.create') }}">Nueva Etiqueta</a>
    
     <h1>Mostrar Listado de Etiquetas</h1>
-    @if (session('info'))
-        <div class="alert alert-danger">
-            <strong>{{ session('info') }}</strong>
-        </div>
-    @endif
+
 @stop
 
 @section('content')
+    @if (session('info'))
+        <div class="alert alert-success">
+            <strong>{{ session('info') }}</strong>
+        </div>
+    @endif
     <div class="card">
         <div class="card-body">
             <table class="table table-striped">

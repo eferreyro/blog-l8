@@ -256,11 +256,13 @@ return [
             'text' => 'Categorias',
             'route'  => 'admin.categories.index',
             'icon' => 'fab fa-fw fa-buffer',
+            'active' => ['admin/categories*'],
         ],
         [
             'text' => 'Etiquetas',
             'route'  => 'admin.tags.index',
             'icon' => 'fas fa-fw fa-tags',
+            'active' => ['admin/tags*'],
         ],
         [
             'text' => 'change_password',
