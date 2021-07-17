@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
 class Post extends Model
 {
     use HasFactory;
+    //Habilito la asignacion masiva
+    protected $guarded = [ 'id', 'create_at', 'update_at'];
 
     //Relacion uno a muchos Inversa POST con USUARIOS
     public function user(){

@@ -8,11 +8,15 @@
             {{-- Contenido PRINCIPAL --}}
             <div class="lg:col-span-2">
                 <figure class="figure">
-                    <img class="w-full h-80 object-cover object-center rounded" src="{{Storage::url($post->image->url)}}" alt="">
+                    @if ($post->image)
+                        <img class="w-full h-80 object-cover object-center rounded" src="{{Storage::url($post->image->url)}}" alt="">
+                    @else
+                        <img class="w-full h-80 object-cover object-center rounded" src="https://i2.wp.com/www.icrisat.org/wp-content/uploads/2017/11/image-pending-_resized700x500-2.jpg" alt="">
+                    @endif
                     
                 </figure>
                 <div class="text-base text-gray-500 mt-4">
-                    {{$post->body}}
+                    {!!$post->body!!}
                 </div>
             </div>
             {{-- Contenido RELACIONADO --}}
@@ -22,7 +26,11 @@
                     @foreach ($similares as $similar)
                     <li class="mb-4">
                         <a class="flex" href="{{route('posts.show', $similar)}}">
-                            <img class="h-22 w-36  object-cover object-center rounded" src="{{Storage::url($similar->image->url)}}" alt="">
+                            @if ($similar->image)
+                                <img class="h-22 w-36  object-cover object-center rounded" src="{{Storage::url($similar->image->url)}}" alt="">
+                            @else
+                                <img class="h-22 w-36  object-cover object-center rounded" src="https://i2.wp.com/www.icrisat.org/wp-content/uploads/2017/11/image-pending-_resized700x500-2.jpg" alt="">
+                            @endif
                             <span class="ml-2 text-gray-600">{{$similar->name}}</span>
                         </a>
                     </li>                        

@@ -3,7 +3,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @foreach ($posts as $post)
                 <article class="w-full h-80 bg-cover bg-center rounded-md @if ($loop->first) md:col-span-2  @endif" style="background-image:
-                    url({{ Storage::url($post->image->url) }})">
+                    url(@if($post->image){{ Storage::url($post->image->url) }} @else https://i2.wp.com/www.icrisat.org/wp-content/uploads/2017/11/image-pending-_resized700x500-2.jpg @endif)">
                     <div class="w-full h-full px-8 flex flex-col justify-center">
                        <div>
                           @foreach ($post->tags as $tag)
