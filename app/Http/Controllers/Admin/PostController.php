@@ -83,7 +83,12 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Post $post)
+
+
     {
+        //Hago referencia de la Policie que he creado para autentificar el usuario
+        $this->authorize('author', $post);
+
         //Recupero la lista de categorias para pasarla al formulacion de creacion de POST
         $categories = Category::pluck('name', 'id');
         //Recupero la lista de etiquetas para pasrala al formulario de creacion de POST
@@ -102,6 +107,8 @@ class PostController extends Controller
      */
     public function update(PostRequest $request, Post $post)
     {
+        //Hago referencia de la Policie que he creado para autentificar el usuario
+        $this->authorize('author', $post);
         //
         $post->update($request->all());
         if ($request->file('file')) {
@@ -132,6 +139,8 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        //Hago referencia de la Policie que he creado para autentificar el usuario
+        $this->authorize('author', $post);
         //Elimino el post que viene por $post
         $post->delete();
         return redirect()->route('admin.posts.index')->with('info', 'El post se ha eliminado');

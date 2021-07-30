@@ -18,6 +18,10 @@ class PostController extends Controller
     }
 
     public function show(Post $post){
+        //regla de validacion para mostrar un POST publicado
+        $this->authorize('published', $post);
+
+        //Regla para mostrar post similares
         $similares = Post::where('category_id', $post->category_id)
                             ->where('status', 2)
                             ->where('id', '!=', $post->id)
