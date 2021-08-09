@@ -21,6 +21,8 @@ class DatabaseSeeder extends Seeder
         Storage::deleteDirectory('posts');
         //Creo una carpeta en public/storage llamada posts
         Storage::makeDirectory('posts');
+        //Seeder de Roles y Permisos
+        $this->call(RoleSeeder::class);
 
         // \App\Models\User::factory(10)->create();
         //Llamo al seeder que acabo de crear ya que este documento es el unico que se crea a la hora de ejecutar los seeders
