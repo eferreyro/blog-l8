@@ -8,11 +8,15 @@ use App\Models\Tag;
 
 class TagController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    public function __construct()
+    {
+        $this->middleware('can:admin.tags.index')->only('index');
+        $this->middleware('can:admin.tags.create')->only('create', 'store');
+        $this->middleware('can:admin.tags.edit')->only('edit', 'update');
+        $this->middleware('can:admin.tags.destroy')->only('destroy');
+    }
+
     public function index()
     {
         $tags = Tag::all();
@@ -20,11 +24,7 @@ class TagController extends Controller
         return view('admin.tags.index', compact('tags'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         //Defino variable de nombre color y lo convierto en un array
@@ -43,12 +43,7 @@ class TagController extends Controller
         return view('admin.tags.create', compact('colors'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         //Retorno el valor de lo que se manda por el formulario
@@ -62,24 +57,7 @@ class TagController extends Controller
         return redirect()->route('admin.tags.edit', compact('tag'))->with('info', 'La etiqueta fue creada');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  Tag $tag
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Tag $tag)
-    {
-        //Indico que este metodo retorna una vista view
-        return view('admin.tags.show', compact($tag));
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  Tag $tag
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Tag $tag)
     {
         $colors = [
@@ -97,13 +75,7 @@ class TagController extends Controller
         return view('admin.tags.edit', compact('tag', 'colors'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  Tag $tag
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, Tag $tag)
     {
         //Regla de validacion  del formulario tags
@@ -118,12 +90,7 @@ class TagController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  Tag $tag
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Tag $tag)
     {
         //llamamos al objeto TAG y luego le pasamos el metodo DELETE
