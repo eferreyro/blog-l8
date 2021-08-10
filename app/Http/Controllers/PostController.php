@@ -6,13 +6,29 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Category;
 use App\Models\Tag;
+use Illuminate\Support\Facades\Cache;
 
 class PostController extends Controller
 {
     //Creanto un metodo de POST
     public function index(){
-
-        $posts = Post::where('status', 2)->latest('id')->paginate(8);
+        if (request()->page) {
+            # code...
+            $key = 'posts' . request()->page;
+        }else {
+            # code...
+            $key = 'posts';
+        }
+        if (Cache::has($key)) {
+            //verifico que tengo algo almacenado en la cache
+            $posts = Cache::get($key);
+        } else {
+            //Ejecuto la consulta a la ba se de datos
+            $posts = Post::where('status', 2)->latest('id')->paginate(8);
+            //Almaceno la informacion en cache
+            Cache::put($key, $posts);
+        }
+        
         
         return view('posts.index', compact('posts'));
     }
